@@ -5,25 +5,40 @@ import { fileURLToPath } from 'node:url';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+interface Options {
+    port: number;
+    public_path?: string; 
+}
+
 export class Server{ 
 
     private app = express();
+    private readonly port: number;
+    private readonly public_path: string;
+
+    constructor(options: Options){
+
+        const { port, public_path = 'public'} = options
+
+        this.port = port;
+        this.public_path = public_path;
+    }
 
     async start(){ 
 
         // Middleware
 
         // Public Folder
-        this.app.use(express.static('public'));
+        this.app.use(express.static(this.public_path));
 
         this.app.get('/*splat', (req, res) => {
-           const indexPath = path.join(__dirname + '../../../public/index.html')
+           const indexPath = path.join(__dirname + `../../../${this.public_path}/index.html`)
            res.sendFile(indexPath);
            
         });
 
-        this.app.listen(3000, () => {
-            console.log(`Server running on port 3000`)
+        this.app.listen(this.port, () => {
+            console.log(`Server running on port ${this.port}`)
         })
     }
 
