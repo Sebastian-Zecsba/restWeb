@@ -1,4 +1,4 @@
-import express from "express";
+import express, { response } from "express";
 import path from "node:path";
 import { fileURLToPath } from 'node:url';
 
@@ -31,6 +31,17 @@ export class Server{
         // Public Folder
         this.app.use(express.static(this.public_path));
 
+        // routes
+
+        this.app.get('/api/todo', (req, res) => { 
+            res.json([
+                {id: 1, text: 'Buy milk', createdAt: new Date()},
+                {id: 2, text: 'Buy bread', createdAt: new Date()},
+                {id: 3, text: 'Buy butter', createdAt: new Date()},
+            ]);
+        })
+
+        // /*splat 
         this.app.get('/*splat', (req, res) => {
            const indexPath = path.join(__dirname + `../../../${this.public_path}/index.html`)
            res.sendFile(indexPath);

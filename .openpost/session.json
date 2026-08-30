@@ -5,7 +5,7 @@
       "tabKind": "request",
       "name": "New Request",
       "method": "GET",
-      "url": "",
+      "url": "https://app.zecsba.online/api/todo",
       "params": [],
       "headers": [
         {
@@ -32,7 +32,6 @@
       "testRules": [],
       "setVariables": [],
       "activeTab": "headers",
-      "responseTab": "body",
       "sourceRequestId": null,
       "sourceCollectionId": null,
       "sourceFolderPath": null,
@@ -40,23 +39,71 @@
       "proxyId": null,
       "certificateConfig": null,
       "inheritCertificate": false,
-      "response": null,
+      "response": {
+        "status": 200,
+        "statusText": "",
+        "headers": {
+          "alt-svc": "h3=\":443\"; ma=86400",
+          "cf-cache-status": "DYNAMIC",
+          "cf-ray": "a331350f5dfa743c-MIA",
+          "content-encoding": "br",
+          "content-type": "application/json; charset=utf-8",
+          "date": "Sun, 30 Aug 2026 04:56:08 GMT",
+          "etag": "W/\"ca-BZ7qyJOerRwtbZ519jxkClsDxD8\"",
+          "nel": "{\"report_to\":\"cf-nel\",\"success_fraction\":0.0,\"max_age\":604800}",
+          "report-to": "{\"group\":\"cf-nel\",\"max_age\":604800,\"endpoints\":[{\"url\":\"https://a.nel.cloudflare.com/report/v4?s=wnepo1z87CdmgLiFc737VWU1Faqmnd9VpFt3HJndi%2FLS7KMC3bZ8kKmDJ1VFdL2dTn9ve9Sbj5frG8FPix5%2BjjpEGlp%2B2Mei8GN%2F9AvURNLzGRdEoId42YrOmdE3ljFm82wzAg%3D%3D\"}]}",
+          "server": "cloudflare",
+          "x-powered-by": "Express"
+        },
+        "body": "[{\"id\":1,\"text\":\"Buy milk\",\"createdAt\":\"2026-08-30T04:56:08.899Z\"},{\"id\":2,\"text\":\"Buy bread\",\"createdAt\":\"2026-08-30T04:56:08.899Z\"},{\"id\":3,\"text\":\"Buy butter\",\"createdAt\":\"2026-08-30T04:56:08.899Z\"}]",
+        "time": 503,
+        "size": 202,
+        "actualRequest": {
+          "method": "GET",
+          "url": "https://app.zecsba.online/api/todo",
+          "headers": {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+          },
+          "body": null,
+          "protocol": "HTTP/1.1",
+          "certificateNames": "System Trust Store"
+        },
+        "cookies": [],
+        "timingPhases": [
+          {
+            "name": "Environment",
+            "duration": 1
+          },
+          {
+            "name": "Auth",
+            "duration": 0
+          },
+          {
+            "name": "HTTP Request",
+            "duration": 503
+          },
+          {
+            "name": "Post-processing",
+            "duration": 0
+          }
+        ]
+      },
       "error": null,
       "loading": false,
       "wsConnected": false,
       "wsUrl": null,
       "wsMessages": [],
-      "grpcConnected": false,
-      "grpcStreaming": false,
-      "grpcMessages": [],
-      "grpcConfig": null,
       "groupId": null,
       "mcpDescription": "",
       "mcpInputSchema": "",
       "collectionId": null,
       "folderId": null,
       "folderPath": null,
-      "editorScope": "local"
+      "editorScope": "local",
+      "grpcConnected": false,
+      "grpcStreaming": false,
+      "responseTab": "body"
     }
   ],
   "groups": [],
