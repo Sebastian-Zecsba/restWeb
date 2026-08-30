@@ -1,4 +1,4 @@
-import express, { response } from "express";
+import express, { response, Router } from "express";
 import path from "node:path";
 import { fileURLToPath } from 'node:url';
 
@@ -7,6 +7,7 @@ const __dirname = path.dirname(__filename);
 
 interface Options {
     port: number;
+    routes: Router;
     public_path?: string; 
 }
 
@@ -15,13 +16,15 @@ export class Server{
     private app = express();
     private readonly port: number;
     private readonly public_path: string;
+    private readonly routes: Router;
 
     constructor(options: Options){
 
-        const { port, public_path = 'public'} = options
+        const { port, public_path = 'public', routes} = options
 
         this.port = port;
         this.public_path = public_path;
+        this.routes = routes;
     }
 
     async start(){ 
@@ -32,14 +35,8 @@ export class Server{
         this.app.use(express.static(this.public_path));
 
         // routes
-
-        this.app.get('/api/todo', (req, res) => { 
-            res.json([
-                {id: 1, text: 'Buy milk', createdAt: new Date()},
-                {id: 2, text: 'Buy bread', createdAt: new Date()},
-                {id: 3, text: 'Buy butter', createdAt: new Date()},
-            ]);
-        })
+        this.app.use(this.routes)
+        
 
         // /*splat 
         this.app.get('/*splat', (req, res) => {
