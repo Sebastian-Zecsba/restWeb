@@ -1,4 +1,5 @@
 import type { Request, Response } from "express";
+import { prisma } from "../../data/postgres/index.js";
 
 interface todo { 
     id: number,
@@ -19,32 +20,38 @@ export class TodosController {
 
     }
 
-    public getTodos = (req: Request, res: Response) => { 
-        return res.json(todos);
+    public getTodos = async (req: Request, res: Response) => { 
+        const getTodos = await prisma.todo.findMany()
+        return res.json(getTodos);
     }
 
-    public getTodoById = (req: Request, res: Response) => {
+    public getTodoById = async (req: Request, res: Response) => {
         const id = Number(req.params.id);
         if(isNaN(id)) return res.status(400).json({error: `ID agument is not a number`})
-        const todo = todos.find(todo => todo.id === id);
-        
-        ( todo )
-            ? res.json(todo)
-            : res.status(404).json({error: `TODO with id ${id} dosen't exist `}) 
+
+        const todo = await prisma.todo.findMany({ 
+            where: { 
+                id: { equals: id}
+            }
+        })
+
+        if(todo.length === 1){ 
+            return res.json(todo)       
+        }else{
+            return res.status(404).json({error: `TODO with id ${id} dosen't exist `}) 
+         }
+
     }
 
-    public createTodo = (req: Request, res: Response) => {
+    public createTodo = async (req: Request, res: Response) => {
         const { text } = req.body;
         if(!text) res.status(400).json({error: 'Texto propertyy is required'})
 
-        const newTodo = { 
-            id: todos.length + 1,
-            text: text,
-            completedAt: new Date()
-        }
-        todos.push(newTodo)
+        const todo = await prisma.todo.create({ 
+            data: { text: text}
+        });
 
-        res.json(newTodo)
+        res.json(todo)
     }
 
     public updateTodo = (req: Request, res: Response) => {
